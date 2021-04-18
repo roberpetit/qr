@@ -1,0 +1,46 @@
+<div class="container">
+    <div *ngIf="title" class="row">
+        <section class="headline">
+            <h1>{{title|translate}}</h1>
+        </section>
+    </div>
+    <form autocomplete="on" [formGroup]="busquedaForm" (ngSubmit)="search()">
+        <div class="row">
+            <div class="col col-sm-3">
+                <mat-form-field class="input-full-width">
+                    <input formControlName='input' matInput placeholder={{placeholder|translate}}>
+                </mat-form-field>
+                <div class="message-error" *ngFor="let error of errorMessages.input">
+                    <ng-container *ngIf="input.hasError(error.type) && (input.dirty || input.touched)">
+                        <small class="error">{{error.message|translate:params}}</small>
+                    </ng-container>
+                </div>
+            </div>
+            <mat-spinner *ngIf="loading" diameter=40></mat-spinner>
+            <div class="col col-sm-3">
+                <div >
+                    <mat-form-field class="input-full-width" *ngIf="firstData && !loading">
+                        <input formControlName='firstData' matInput placeholder={{firstData|translate}}>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="col col-sm-3">
+                <mat-form-field class="input-full-width" *ngIf="secondData && !loading">
+                    <input formControlName='secondData' matInput placeholder="{{secondData|translate}}">
+                </mat-form-field>
+            </div>
+            <div class="col col-sm-3"></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-1">
+                <button type="submit" [disabled]='!busquedaForm.valid' mat-raised-button
+                    color="accent">{{'search'|translate}}</button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="row">
+        <mat-spinner *ngIf="loadingNextItem" diameter=40></mat-spinner>
+    </div>
+</div>

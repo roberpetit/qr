@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="card-title">
+    <h2>{{'confirmation'|translate}}</h2>
+  </div>
+
+  <div>{{data.message}}</div>
+  <div mat-dialog-actions>
+    <button mat-raised-button (click)="dialogRef.close(true)">{{'confirm'|translate}}</button>
+    <button mat-button (click)="dialogRef.close(false)">{{'cancel'|translate}}</button>
+  </div>
+</div>

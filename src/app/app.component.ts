@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'qr-muni';
+  selection: string = "Hello";
+  url:string;
+
+  selectURL() {
+    this.selection = "url";
+  }
 }
