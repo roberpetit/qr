@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  qrSave: 'http://localhost:8080/qr/save',
-  qrSearch: 'http://localhost:8080/qr/findById/'
+  qrSave: '/api/qr/save',
+  qrSearch: '/api/qr/'
 
 };
 

@@ -11,12 +11,7 @@ import { QrService } from '../service/qr.service';
 export class NewQrComponent implements OnInit {
 
   orderForm: FormGroup;
-  initialDate: Date;
-  initialEndDate: Date;
-  contracts: any;
-  allContracts: any;
-  typeEnums: string[];
-  serverTime: Date;
+  initialExpirationDate: Date;
   @Input()
   qr: QrEntity;
 
@@ -27,43 +22,33 @@ export class NewQrComponent implements OnInit {
   ngOnInit() {
     if (!this.qr) {
       this.qr = new QrEntity();
+      this.qr.expiration = new Date();
     }
     this.setFormControls();
-    this.getCurrentServerTime();
-    this.typeEnums = [];
   }
 
   setFormControls() {
     this.orderForm = this.fb.group({
-      orderNumber: [this.qr.orderNumber, [Validators.required]],
-      amount: [this.qr.amount, [this.isNumeric()]],
-      validFrom: [null, [Validators.required]],
-      validTo: [null],
-      type: [this.qr.type, [Validators.required]]
+      name: [this.qr.name, [Validators.required]],
+      img: [null, [Validators.required]],
+      url: [null, [Validators.required]],
+      type: [this.qr.type, [Validators.required]],
+      mobileDescription: [null, [Validators.required]],
+      mobileImg: [null, [Validators.required]],
+      expiration: [null, [Validators.required]],
     });
-    this.initialDate = this.qr.validFrom;
-    this.initialEndDate = this.qr.validTo;
+    this.initialExpirationDate = this.qr.expiration;
     this.orderForm.valueChanges.subscribe(value => {
       this.qr = this.orderForm.value;
     });
-  }
 
-  changeStartDate(date) {
-    if (date < this.serverTime) {
-      date = this.serverTime;
-    }
-    this.orderForm.get('validFrom').setValue(date);
-    if (this.orderForm.get('validFrom').value < date) {
-      this.orderForm.get('validTo').setValue(date);
-    }
+    this.searchForm = this.fb.group({
+      id: [null, [Validators.required]],
+    });
   }
 
   changeEndDate(date) {
-    this.orderForm.get('validTo').setValue(date);
-  }
-
-  selectCheckContract(contracts) {
-    this.orderForm.get('contracts').setValue(contracts);
+    this.orderForm.get('expiration').setValue(date);
   }
 
   isNumeric(): ValidatorFn {
@@ -85,7 +70,22 @@ export class NewQrComponent implements OnInit {
     ?this.orderForm.get(formcontrol).errors.message:null;
   }
 
-  getCurrentServerTime() {
-    this.qrService
+  onSubmit() {
+    this.qrService.saveOrder(this.orderForm.value).subscribe(data => {
+      console.log("SUCCESS saving: ", data)
+    }, error => {
+      console.log("ERROR saving : ", error)
+    })
+  }
+
+
+  searchForm: FormGroup;
+
+  onSubmitSearch() {
+    this.qrService.getQr(this.searchForm.get('id').value).subscribe(data => {
+      console.log("SUCCESS saving: ", data)
+    }, error => {
+      console.log("ERROR saving : ", error)
+    })
   }
 }

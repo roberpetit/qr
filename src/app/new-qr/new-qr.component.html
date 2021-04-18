@@ -1,45 +1,73 @@
 <div class="container">
-    <form autocomplete="off" [formGroup]="orderForm">
-        <!-- Número de pedido -->
+    <div class="row">
+        <section class="headline">
+            <h1>Alta de nuevo elemento QR</h1>
+        </section>
+    </div>
+
+    <form autocomplete="on" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
+        <!-- name -->
         <div class="row col-md-12">
             <mat-form-field class="input-full-width">
-                <mat-label>{{'order.number'|translate}}</mat-label>
-                <input formControlName="orderNumber" matInput>
+                <mat-label>name</mat-label>
+                <input formControlName="name" matInput>
+            </mat-form-field>
+        </div>
+        <!-- img -->
+        <div class="row col-md-12">
+            <mat-form-field class="input-full-width">
+                <mat-label>img</mat-label>
+                <input formControlName="img" matInput>
+            </mat-form-field>
+        </div>
+        <!-- url -->
+        <div class="row col-md-12">
+            <mat-form-field class="input-full-width">
+                <mat-label>url</mat-label>
+                <input formControlName="url" matInput>
+            </mat-form-field>
+        </div>
+        <!-- type -->
+        <div class="row col-md-12">
+            <mat-form-field class="input-full-width">
+                <mat-label>type</mat-label>
+                <input formControlName="type" matInput>
+            </mat-form-field>
+        </div>
+        <!-- mobileDescription -->
+        <div class="row col-md-12">
+            <mat-form-field class="input-full-width">
+                <mat-label>mobileDescription</mat-label>
+                <input formControlName="mobileDescription" matInput>
+            </mat-form-field>
+        </div>
+        <!-- mobileImg -->
+        <div class="row col-md-12">
+            <mat-form-field class="input-full-width">
+                <mat-label>mobileImg</mat-label>
+                <input formControlName="mobileImg" matInput>
             </mat-form-field>
         </div>
 
-        <!-- Fecha Comienzo -->
+        <!-- Fecha -->
         <div class="row col-md-12">
-            <app-datepicker [label]="'order.start'" (selectedDate)="changeStartDate($event)"
-                [initialDate]="initialDate">
-            </app-datepicker>
+            <app-datepicker [label]="'Fecha de vencimiento'" (selectedDate)="changeEndDate($event)"
+                [initialDate]="initialExpirationDate" [minDate]="initialExpirationDate"></app-datepicker>
         </div>
 
-        <!-- Fecha Fin -->
-        <div class="row col-md-12">
-            <app-datepicker [label]="'order.end'" (selectedDate)="changeEndDate($event)"
-                [initialDate]="initialEndDate" [minDate]="orderForm.value.validFrom"></app-datepicker>
-        </div>
+        <button class="button" type="submit">Crear QR</button>
 
-        <!-- Monto -->
+    </form>
+
+    <form autocomplete="on" [formGroup]="searchForm" (ngSubmit)="onSubmitSearch()">
+        <!-- id -->
         <div class="row col-md-12">
-            <mat-form-field class="">
-                <mat-label>{{'order.initialAmount'|translate}}</mat-label>
-                <input formControlName="amount" matInput>
-                <mat-error>{{getError('amount') | translate}}</mat-error>
+            <mat-form-field class="input-full-width">
+                <mat-label>id</mat-label>
+                <input formControlName="id" matInput>
             </mat-form-field>
         </div>
+        <button class="button" type="submit">Search QR</button>
 
-        <!-- Tipo -->
-        <div class="row col-md-12">
-            <div class="col-md-6">
-                <mat-radio-group formControlName="type">
-                    <mat-radio-button class="example-margin col-md-4" *ngFor="let value of typeEnums"
-                        [value]="value">
-                        {{'order.'+value|translate}} </mat-radio-button>
-                </mat-radio-group>
-            </div>
-        </div>
-        <br />
     </form>
 </div>

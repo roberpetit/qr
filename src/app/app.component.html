@@ -1,53 +1,11 @@
-
-
 <!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <img width="40" alt="Angular Logo"
-    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg==" />
+<div class="toolbar" role="banner" [routerLink]="['home']">
+  <mat-icon style="width: 40px;" aria-hidden="false">home</mat-icon>
   <span>QR</span>
   <div class="spacer"></div>
 </div>
 
 <div class="content" role="main">
-
-  <!-- Next Steps -->
-  <h2>QR app</h2>
-
-  <div class="p-formgroup-inline">
-    <div class="p-field">
-      <label for="url" class="p-sr-only">URL</label>
-      <input id="url" type="text" [(ngModel)]="url" pInputText placeholder="URL">
-    </div>
-  </div>
-  <a class="card" target="_blank" rel="noopener" (click)="selectURL()">
-    <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <path
-        d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z" />
-    </svg>
-
-    <span>Generate QR</span>
-
-    <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-      <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-    </svg>
-  </a>
-
-  <!-- Terminal -->
-  <div class="terminal" [ngSwitch]="selection">
-    <pre *ngSwitchDefault> 
-      
-        Escriba una URL y obtenga su QR
-      
-     </pre>
-    <pre *ngSwitchCase="'ferraro'">
-      FERRAROOOO
-    </pre>
-    <pre *ngSwitchCase="'url'">
-      <qrcode [qrdata]="url" [width]="512" [errorCorrectionLevel]="'M'"></qrcode>
-    </pre>
-  </div>
-
-
   <svg id="clouds" alt="Gray Clouds Background" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677"
     viewBox="0 0 2611.084 485.677">
     <path id="Path_39" data-name="Path 39"
@@ -55,17 +13,7 @@
       transform="translate(142.69 -634.312)" fill="#eee" />
   </svg>
 
-
-  <div class="row py-5">
-    <div class="col-lg-4 py-5 mx-auto">
-        <a mat-fab color="primary" routerLink="/new" class="big-button-menu">
-            <mat-icon class="mat-18"></mat-icon>
-        </a>
-        <span class="mat-headline px-2">NEW QR</span>
-    </div>
-</div>
+  <router-outlet></router-outlet>
 
 
 </div>
-
-<router-outlet></router-outlet>

@@ -1,12 +1,12 @@
 
 export class QrEntity {
-    orderNumber: number;
-    amount: string;
-    balance: string;
-    validFrom: Date;
-    validTo: Date;
-    status: string;
-    
-    userName: string;
+    id: string;
+    name: string;
+    img: string;
+    url: string;
+    expiration: Date;
     type: string;
+    mobileDescription: string;
+    mobileImg: string;
+
 }

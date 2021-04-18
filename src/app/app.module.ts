@@ -15,12 +15,16 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { ComponentModule } from './component/component.module';
 import { CommonModule } from '@angular/common';
 import { GeneratorComponent } from './generator/generator.component';
+import { HomeComponent } from './home/home.component';
+import { ShowQrComponent } from './show-qr/show-qr.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NewQrComponent,
-    GeneratorComponent
+    GeneratorComponent,
+    HomeComponent,
+    ShowQrComponent
   ],
   imports: [
     CommonModule,

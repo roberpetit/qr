@@ -6,10 +6,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./generator.component.css']
 })
 export class GeneratorComponent implements OnInit {
+  selection: string = "Hello";
+  url:string;
 
   constructor() { }
 
   ngOnInit(): void {
   }
-
+  
+  selectURL() {
+    this.selection = "url";
+  }
 }
