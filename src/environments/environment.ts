@@ -6,7 +6,6 @@ export const environment = {
   production: false,
   qrSave: '/api/qr/save',
   qrSearch: '/api/qr/'
-
 };
 
 /*

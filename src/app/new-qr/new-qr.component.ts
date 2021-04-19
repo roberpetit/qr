@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { Router } from '@angular/router';
 import { QrEntity } from '../model/qr-entity.model';
 import { QrService } from '../service/qr.service';
 
@@ -14,10 +15,13 @@ export class NewQrComponent implements OnInit {
   initialExpirationDate: Date;
   @Input()
   qr: QrEntity;
+  save: string;
+  search: string;
 
   constructor(
     private fb: FormBuilder,
-    private qrService: QrService) { }
+    private qrService: QrService,
+    private router: Router) { }
 
   ngOnInit() {
     if (!this.qr) {
@@ -71,10 +75,13 @@ export class NewQrComponent implements OnInit {
   }
 
   onSubmit() {
-    this.qrService.saveOrder(this.orderForm.value).subscribe(data => {
+    this.qrService.saveOrder(this.orderForm.value).subscribe((data:QrEntity) => {
       console.log("SUCCESS saving: ", data)
+      this.save = JSON.stringify(data, undefined, 4);
+      this.router.navigate(['/show', { id: data.id }]);
     }, error => {
       console.log("ERROR saving : ", error)
+      this.save = JSON.stringify(error);
     })
   }
 
@@ -83,9 +90,11 @@ export class NewQrComponent implements OnInit {
 
   onSubmitSearch() {
     this.qrService.getQr(this.searchForm.get('id').value).subscribe(data => {
-      console.log("SUCCESS saving: ", data)
+      console.log("SUCCESS search: ", data)
+      this.search = JSON.stringify(data, undefined, 4);;
     }, error => {
-      console.log("ERROR saving : ", error)
+      console.log("ERROR search : ", error)
+      this.search = JSON.stringify(error);
     })
   }
 }

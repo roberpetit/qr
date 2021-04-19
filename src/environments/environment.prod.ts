@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  qrSave: 'http://localhost:8080/qr/save',
-  qrSearch: 'http://localhost:8080/qr/findById/'
+  qrSave: 'https://qr-service.azurewebsites.net/qr/save',
+  qrSearch: 'https://qr-service.azurewebsites.net/qr/'
 
 };
