@@ -4,8 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { QrEntity } from '../model/qr-entity.model';
 import { QrService } from '../service/qr.service';
 import { environment } from 'src/environments/environment';
-import { jsPDF } from "jspdf";
-import html2canvas from "html2canvas";
+import * as html2pdf from 'html2pdf.js';
 
 @Component({
   selector: 'app-show-qr',
@@ -52,27 +51,19 @@ export class ShowQrComponent implements OnInit {
   printQR(event?) {
     console.log(event)
 
-    // Get the element to export into pdf
-    let pdfContent = window.document.getElementById("pdfContent");
+    const options = {
+      margin:       1,
+      filename: 'qr.pdf',
+      image: {type: 'jpeg'},
+      html2canvas: {},
+      jsPDF:{orientation:'landscape'}
+    }
 
-    // Use html2canvas to apply CSS settings
-    html2canvas(pdfContent).then(function (canvas)
-    {
-      var img = canvas.toDataURL("image/PNG");
-      var doc = new jsPDF('p', 'pt','a4', true);
-
-      // Add image Canvas to PDF
-      const bufferX = 5;
-      const bufferY = 5;
-      const imgProps = (<any>doc).getImageProperties(img);
-      const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-      const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-      doc.addImage(img, 'PNG', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-
-      return doc;
-    }).then((doc) => {
-      doc.save('postres.pdf');  
-    });
+    const pdfContent: Element = document.getElementById('pdfContent');
+    html2pdf()
+    .from(pdfContent)
+    .set(options)
+    .save();
   }
 
 }
