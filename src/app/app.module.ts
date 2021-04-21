@@ -17,6 +17,7 @@ import { CommonModule } from '@angular/common';
 import { GeneratorComponent } from './generator/generator.component';
 import { HomeComponent } from './home/home.component';
 import { ShowQrComponent } from './show-qr/show-qr.component';
+import { QrFormComponent } from './qr-form/qr-form.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ShowQrComponent } from './show-qr/show-qr.component';
     NewQrComponent,
     GeneratorComponent,
     HomeComponent,
-    ShowQrComponent
+    ShowQrComponent,
+    QrFormComponent
   ],
   imports: [
     CommonModule,

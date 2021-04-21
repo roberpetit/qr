@@ -10,6 +10,7 @@ export class DatepickerComponent implements OnChanges, OnInit {
   @Input() minDate = new Date();
   @Input() initialDate = null;
   @Input() label;
+  @Input() disabled;
   @Output() selectedDate = new EventEmitter();
 
   date: any;

@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" id="pdfContent">
     <div class="row">
         <section class="headline">
             <h1>Busqueda de elemento QR por id</h1>
@@ -17,12 +17,22 @@
     </form>
 
     <div class="row col-md-8" *ngIf="search">
-        <div>
+        <div class="font-weight-bold">
             Search response:
         </div>
-        <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5">
-            {{search}}
-        </textarea>
+        <!-- 
+            Texto respuesta en modo json
+            <br/>
+            <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5">
+                {{search}}
+            </textarea>
+        -->
+
+        <br/>
+        <br/>
+        <div *ngIf="qrElement">
+            <app-qr-form [qrElement]="qrElement" (submit)="printQR($event)" ></app-qr-form>
+        </div>
 
         <div>
             <qrcode [qrdata]="url" [width]="300" [errorCorrectionLevel]="'M'"></qrcode>

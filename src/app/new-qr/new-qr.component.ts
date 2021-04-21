@@ -16,7 +16,6 @@ export class NewQrComponent implements OnInit {
   @Input()
   qr: QrEntity;
   save: string;
-  search: string;
 
   constructor(
     private fb: FormBuilder,
@@ -45,33 +44,10 @@ export class NewQrComponent implements OnInit {
     this.orderForm.valueChanges.subscribe(value => {
       this.qr = this.orderForm.value;
     });
-
-    this.searchForm = this.fb.group({
-      id: [null, [Validators.required]],
-    });
   }
 
   changeEndDate(date) {
     this.orderForm.get('expiration').setValue(date);
-  }
-
-  isNumeric(): ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      const numberPattern = /^-?(0|[1-9]\d*)?$/;
-      const isNumeric = numberPattern.test(control.value);
-      return isNumeric ? null : {value: control.value, message: "order.numeric"};
-    };
-  }
-
-  hasError(formcontrol) {
-    return !this.orderForm.get(formcontrol).valid  && 
-    (this.orderForm.get(formcontrol).dirty || this.orderForm.get(formcontrol).touched);
-  }
-
-  getError(formcontrol: string) {
-    return this.orderForm.get(formcontrol).errors && 
-    (this.orderForm.get(formcontrol).dirty || this.orderForm.get(formcontrol).touched)
-    ?this.orderForm.get(formcontrol).errors.message:null;
   }
 
   onSubmit() {
@@ -85,16 +61,4 @@ export class NewQrComponent implements OnInit {
     })
   }
 
-
-  searchForm: FormGroup;
-
-  onSubmitSearch() {
-    this.qrService.getQr(this.searchForm.get('id').value).subscribe(data => {
-      console.log("SUCCESS search: ", data)
-      this.search = JSON.stringify(data, undefined, 4);;
-    }, error => {
-      console.log("ERROR search : ", error)
-      this.search = JSON.stringify(error);
-    })
-  }
 }
