@@ -16,25 +16,23 @@
 
     </form>
 
-    <div class="row col-md-12" *ngIf="search" >
+    <div class="row col-md-12" *ngIf="search" id="htmlData">
         <div class="font-weight-bold">
             Search response:
         </div>
-        <!-- 
             Texto respuesta en modo json
             <br/>
             <textarea matInput cdkTextareaAutosize cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5">
                 {{search}}
             </textarea>
-        -->
 
         <br/>
         <br/>
         <div *ngIf="qrElement">
-            <app-qr-form [qrElement]="qrElement" (submit)="printQR($event)" ></app-qr-form>
+            <app-qr-form [qrElement]="qrElement" (print)="printQR($event)" ></app-qr-form>
         </div>
 
-        <div id="pdfContent" >
+        <div id="contentReduced">
             <qrcode [qrdata]="url" [width]="300" [errorCorrectionLevel]="'M'"></qrcode>
         </div>
     </div>

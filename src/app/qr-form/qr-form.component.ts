@@ -10,7 +10,7 @@ import { QrEntity } from '../model/qr-entity.model';
 export class QrFormComponent implements OnInit {
 
   @Input() qrElement: QrEntity;
-  @Output() submit = new EventEmitter();
+  @Output() print = new EventEmitter();
 
   orderForm: FormGroup;
   initialExpirationDate: Date;
@@ -33,9 +33,12 @@ export class QrFormComponent implements OnInit {
     });
     this.initialExpirationDate = this.qrElement.expiration;
     this.changeEndDate(this.qrElement.expiration);
-    this.orderForm.valueChanges.subscribe(value => {
-      this.qrElement = this.orderForm.value;
-    });
+    /**
+     * 
+     this.orderForm.valueChanges.subscribe(value => {
+       this.qrElement = this.orderForm.value;
+      });
+      */
 
     this.orderForm.disable()
   }
@@ -45,17 +48,17 @@ export class QrFormComponent implements OnInit {
   }
 
   hasError(formcontrol) {
-    return !this.orderForm.get(formcontrol).valid  && 
-    (this.orderForm.get(formcontrol).dirty || this.orderForm.get(formcontrol).touched);
+    return !this.orderForm.get(formcontrol).valid &&
+      (this.orderForm.get(formcontrol).dirty || this.orderForm.get(formcontrol).touched);
   }
 
   getError(formcontrol: string) {
-    return this.orderForm.get(formcontrol).errors && 
-    (this.orderForm.get(formcontrol).dirty || this.orderForm.get(formcontrol).touched)
-    ?this.orderForm.get(formcontrol).errors.message:null;
+    return this.orderForm.get(formcontrol).errors &&
+      (this.orderForm.get(formcontrol).dirty || this.orderForm.get(formcontrol).touched)
+      ? this.orderForm.get(formcontrol).errors.message : null;
   }
-  
+
   onSubmit() {
-    this.submit.emit(this.orderForm.value);
+    this.print.emit(this.orderForm.value);
   }
 }
